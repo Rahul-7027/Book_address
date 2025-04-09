@@ -25,8 +25,8 @@ const TableBookData = () => {
 
   // Delete functionlity
   const handleDelete = (email) => {
-    let confirmDelete=confirm("Are you sure you want to delete this data?");
-    if(!confirmDelete){return}
+    let confirmDelete = confirm("Are you sure you want to delete this data?");
+    if (!confirmDelete) { return }
     const updatedData = data.filter((item) => item.email !== email);
     setData(updatedData);
     localStorage.setItem("book", JSON.stringify(updatedData));
@@ -52,7 +52,7 @@ const TableBookData = () => {
   return (
     <>
       <div className="w-full px-4 sm:px-6 lg:px-8 py-6">
-        
+
         <div className="hidden md:block">
           <div className="shadow-md rounded-lg overflow-hidden">
             <table className="min-w-full border-collapse text-sm text-left text-gray-700 bg-white">
@@ -104,28 +104,32 @@ const TableBookData = () => {
 
 
         <div className="md:hidden space-y-4">
-          {data.map((item, index) => (
-            <div key={index} className="bg-white rounded-lg shadow p-4 space-y-2">
-              <p><strong>Name:</strong> {item.name}</p>
-              <p><strong>Email:</strong> {item.email}</p>
-              <p><strong>Phone:</strong> {item.phone}</p>
-              <p><strong>Address:</strong> {item.address}</p>
-              <div className="flex gap-2 mt-2">
-                <button
-                  className="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-1 rounded"
-                  onClick={() => handleEdit(item.email)}
-                >
-                  Edit
-                </button>
-                <button
-                  className="flex-1 bg-red-600 hover:bg-red-700 text-white py-1 rounded"
-                  onClick={() => handleDelete(item.email)}
-                >
-                  Delete
-                </button>
+          {data.length === 0 ? (<p className="text-center text-red-500">No data available</p>) :
+            (data.map((item, index) => (
+              <div key={index} className="bg-white rounded-lg shadow p-4 space-y-2">
+                <p><strong>Name:</strong> {item.name}</p>
+                <p><strong>Email:</strong> {item.email}</p>
+                <p><strong>Phone:</strong> {item.phone}</p>
+                <p><strong>Address:</strong> {item.address}</p>
+                <div className="flex gap-2 mt-2">
+                  <button
+                    className="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-1 rounded"
+                    onClick={() => handleEdit(item.email)}
+                  >
+                    Edit
+                  </button>
+                  <button
+                    className="flex-1 bg-red-600 hover:bg-red-700 text-white py-1 rounded"
+                    onClick={() => handleDelete(item.email)}
+                  >
+                    Delete
+                  </button>
+                </div>
               </div>
-            </div>
-          ))}
+            ))
+            )
+          }
+
         </div>
       </div>
 
