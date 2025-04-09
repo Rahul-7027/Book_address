@@ -9,7 +9,6 @@ const Nav = (props) => {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
 
-          {/* Left section (Logo or Menu toggle on small screens) */}
           <div className="sm:hidden">
             <button
               type="button"
@@ -53,7 +52,6 @@ const Nav = (props) => {
               aria-haspopup="true"
             >
               <span className="absolute -inset-1.5"></span>
-              {/* <p onClick={modeChange}>☀️'</p> */}
               <p  className="cursor-pointer text-xl px-4" title="Toggle Dark Mode">
                 {props.mode === "light" ? "🌙" : "☀️"}
               </p>
@@ -62,7 +60,6 @@ const Nav = (props) => {
         </div>
       </div>
 
-      {/* Mobile menu  */}
       {isMobileMenuOpen && (
         <div className="sm:hidden px-2 pt-2 pb-3 space-y-1" id="mobile-menu">
           <Link to="/" className="block px-3 py-2 rounded-md text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">
