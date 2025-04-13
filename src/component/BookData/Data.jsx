@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 
 const Data = () => {
 
@@ -16,31 +17,22 @@ const Data = () => {
         setBookData({ ...bookData, [name]: value })
     }
 
-    const handleSubmit = (e) => {
-        e.preventDefault()
+    const handleSubmit = async (e) => {
+        try {
+            e.preventDefault()
+            let response = await axios.post("http://localhost:3000/address-book", bookData)
+            console.log("Submitted:", response.data);
+            alert("Submitted successfully");
+            setBookData({
+                name: "",
+                email: "",
+                phone: "",
+                address: ""
+            })
+        } catch (error) {
+            console.error("❌ Error:", error.response?.data || error.message);
+        }
 
-        const existingdata = JSON.parse(localStorage.getItem("book", bookData)) || [];
-        const updated = [...existingdata, bookData];
-        localStorage.setItem("book", JSON.stringify(updated))
-        setBookData({
-            name: "",
-            email: "",
-            phone: "",
-            address: ""
-        })
-
-        // Duplicate email functionlaity its optional functionlaity
-        // const isDuplicate = existingdata.some(
-        //     (item) => item.email === bookData.email && item.name === bookData.name
-        //   );
-        
-        //   if (isDuplicate) {
-        //     alert("This name and email are already registered!");
-        //     return; 
-        //   }
-
-        alert("Data submitted suceesfully")
-        console.log(111, bookData)
     }
     return (
         <div className="max-w-xl mx-auto p-6 bg-white dark:bg-gray-900 shadow-md rounded-2xl mt-8" >
@@ -88,6 +80,8 @@ const Data = () => {
                         type="tel"
                         id="phone"
                         name="phone"
+                        minLength={0}
+                        maxLength={10}
                         value={bookData.phone}
                         onChange={handleChanged}
                         required
